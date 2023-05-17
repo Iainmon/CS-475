@@ -1,0 +1,1 @@
+bash  loop.bash  2>  proj01.csv 1> proj01.txt
