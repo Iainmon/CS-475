@@ -7,6 +7,11 @@
 #include <sys/resource.h>
 #include <omp.h>
 
+#ifndef CSV
+#define CSV 0
+#endif
+
+
 // SSE stands for Streaming SIMD Extensions
 
 #define SSE_WIDTH	4
@@ -39,7 +44,8 @@ main( int argc, char *argv[ ] )
 		B[i] = sqrtf( (float)(i+1) );
 	}
 
-	fprintf( stderr, "Num: %12d\t", ARRAYSIZE );
+	if (CSV) { fprintf(stderr, "%12d,", ARRAYSIZE); }
+	else { fprintf( stderr, "Num: %12d\t", ARRAYSIZE ); }
 
 	double maxPerformance = 0.;
 	for( int t = 0; t < NUMTRIES; t++ )
@@ -52,7 +58,8 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "NSeqPair: %10.2lf\t", megaMults );
+	if (CSV) { fprintf( stderr, "%10.2lf,", megaMults ); }
+	else { fprintf( stderr, "NSeqPair: %10.2lf\t", megaMults ); }
 	double mmn = megaMults;
 
 
@@ -67,10 +74,12 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "SeqPair: %10.2lf\t", megaMults );
+	if (CSV) { fprintf( stderr, "%10.2lf,", megaMults ); }
+	else { fprintf( stderr, "SeqPair: %10.2lf\t", megaMults ); }
 	double mms = megaMults;
 	double speedup = mms/mmn;
-	fprintf( stderr, "SPair = (%6.2lf)\t", speedup );
+	if (CSV) { fprintf( stderr, "%6.2lf,", speedup ); }
+	else { fprintf( stderr, "SPair = (%6.2lf)\t", speedup ); }
 
 
 	maxPerformance = 0.;
@@ -85,7 +94,8 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "NSeqDot: %10.2lf\t", megaMultAdds );
+	if (CSV) { fprintf( stderr, ",%10.2lf", megaMultAdds ); }
+	else { fprintf( stderr, "NSeqDot: %10.2lf\t", megaMultAdds );}
 	mmn = megaMultAdds;
 
 
@@ -100,10 +110,13 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "SeqDot: %10.2lf\t", megaMultAdds );
+	if (CSV) { fprintf( stderr, ",%10.2lf", megaMultAdds );}
+	else { fprintf( stderr, "SeqDot: %10.2lf\t", megaMultAdds ); }
+
 	mms = megaMultAdds;
 	speedup = mms/mmn;
-	fprintf( stderr, "SDot = (%6.2lf)\n", speedup );
+	if (CSV) { fprintf( stderr, ",%6.2lf\n", speedup ); }
+	else { fprintf( stderr, "SDot = (%6.2lf)\n", speedup ); }
 	//fprintf( stderr, "[ %8.1f , %8.1f , %8.1f ]\n", C[ARRAYSIZE-1], sumn, sums );
 
 	return 0;
