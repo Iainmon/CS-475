@@ -44,7 +44,7 @@ main( int argc, char *argv[ ] )
 		B[i] = sqrtf( (float)(i+1) );
 	}
 
-	if (CSV) { fprintf(stderr, "%12d,", ARRAYSIZE); }
+	if (CSV) { fprintf(stderr, "%12d", ARRAYSIZE); }
 	else { fprintf( stderr, "Num: %12d\t", ARRAYSIZE ); }
 
 	double maxPerformance = 0.;
@@ -58,7 +58,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	if (CSV) { fprintf( stderr, "%10.2lf,", megaMults ); }
+	if (CSV) { fprintf( stderr, ",%10.2lf", megaMults ); }
 	else { fprintf( stderr, "NSeqPair: %10.2lf\t", megaMults ); }
 	double mmn = megaMults;
 
@@ -74,11 +74,11 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	if (CSV) { fprintf( stderr, "%10.2lf,", megaMults ); }
+	if (CSV) { fprintf( stderr, ",%10.2lf", megaMults ); }
 	else { fprintf( stderr, "SeqPair: %10.2lf\t", megaMults ); }
 	double mms = megaMults;
 	double speedup = mms/mmn;
-	if (CSV) { fprintf( stderr, "%6.2lf,", speedup ); }
+	if (CSV) { fprintf( stderr, ",%6.2lf", speedup ); }
 	else { fprintf( stderr, "SPair = (%6.2lf)\t", speedup ); }
 
 
