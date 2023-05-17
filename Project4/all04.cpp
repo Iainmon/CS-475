@@ -52,7 +52,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "NSeqPair %10.2lf\t", megaMults );
+	fprintf( stderr, "NSeqPair: %10.2lf\t", megaMults );
 	double mmn = megaMults;
 
 
@@ -67,7 +67,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "SeqPair %10.2lf\t", megaMults );
+	fprintf( stderr, "SeqPair: %10.2lf\t", megaMults );
 	double mms = megaMults;
 	double speedup = mms/mmn;
 	fprintf( stderr, "SPair = (%6.2lf)\t", speedup );
@@ -85,7 +85,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "NSeqDot %10.2lf\t", megaMultAdds );
+	fprintf( stderr, "NSeqDot: %10.2lf\t", megaMultAdds );
 	mmn = megaMultAdds;
 
 
@@ -100,7 +100,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "SeqDot %10.2lf\t", megaMultAdds );
+	fprintf( stderr, "SeqDot: %10.2lf\t", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
 	fprintf( stderr, "SDot = (%6.2lf)\n", speedup );
