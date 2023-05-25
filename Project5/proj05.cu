@@ -170,17 +170,17 @@ MonteCarlo(
         dsuccesses[gid] = 0;
 
 	// randomize everything:
-	float holeax = dholeaxs[n];
-	float holeay = dholeays[n];
-	float holear = dholears[n];
+	float holeax = dholeaxs[gid];
+	float holeay = dholeays[gid];
+	float holear = dholears[gid];
 
-	float holebx = dholebxs[n];
-	float holeby = dholebys[n];
-	float holebr = dholebrs[n];
+	float holebx = dholebxs[gid];
+	float holeby = dholebys[gid];
+	float holebr = dholebrs[gid];
 
-	float holecx = dholecxs[n];
-	float holecy = dholecys[n];
-	float holecr = dholecrs[n];
+	float holecx = dholecxs[gid];
+	float holecy = dholecys[gid];
+	float holecr = dholecrs[gid];
 
 
 	float da = Length( PinAx - holeax, PinAy - holeay );
@@ -310,7 +310,7 @@ main( int argc, char *argv[ ] )
 	CudaCheckError( 5 );
 
 	// execute the kernel:
-	MonteCarlo<<< grid, threads >>>( ????? );
+	MonteCarlo<<< grid, threads >>>( dholeaxs, dholeays, dholears, dholebxs, dholebys, dholebrs, dholecxs, dholecys, dholecrs, dsuccesses );
 
 	// record the stop event:
 	cudaEventRecord( stop, NULL );
@@ -323,7 +323,7 @@ main( int argc, char *argv[ ] )
 	CudaCheckError( 6 );
 
 	// copy result from the device to the host:
-	cudaMemcpy( ?????, ?????, NUMTRIALS *sizeof(int), cudaMemcpyDeviceToHost );
+	cudaMemcpy( hsuccesses, dsuccesses, NUMTRIALS *sizeof(int), cudaMemcpyDeviceToHost );
 	CudaCheckError( 7 );
 
 	// compute the sum :
