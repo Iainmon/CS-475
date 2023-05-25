@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./loop.bash > data.csv
+./loop.bash 2> data.csv
 
