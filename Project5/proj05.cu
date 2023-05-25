@@ -47,7 +47,7 @@
 
 // ranges for the random numbers:
 
-#define PROJECT1
+// #define PROJECT1
 
 #ifdef PROJECT1
 const float HoleAx   =  2.90f;
@@ -170,19 +170,43 @@ MonteCarlo(
         dsuccesses[gid] = 0;
 
 	// randomize everything:
-	?????
+	float holeax = dholeaxs[n];
+	float holeay = dholeays[n];
+	float holear = dholears[n];
 
-	?????
-	if( ????? )
+	float holebx = dholebxs[n];
+	float holeby = dholebys[n];
+	float holebr = dholebrs[n];
+
+	float holecx = dholecxs[n];
+	float holecy = dholecys[n];
+	float holecr = dholecrs[n];
+
+
+	float da = Length( PinAx - holeax, PinAy - holeay );
+	if( da + PinAr <= holear )
 	{
-		?????
-		if( ????? )
+		float db = Length( PinBx - holebx, PinBy - holeby );
+		if( db + PinBr <= holebr )
 		{
-			?????
-			if( ????? )
-        			dsuccesses[gid] = 1;
+			float dc = Length( PinCx - holecx, PinCy - holecy );
+			if( dc + PinCr <= holecr ) {
+				dsuccesses[gid] = 1;
+			}
 		}
 	}
+
+	// ?????
+	// if( ????? )
+	// {
+	// 	?????
+	// 	if( ????? )
+	// 	{
+	// 		?????
+	// 		if( ????? )
+    //     			dsuccesses[gid] = 1;
+	// 	}
+	// }
 }
 
 
@@ -233,36 +257,36 @@ main( int argc, char *argv[ ] )
 	// ***** be sure to use NUMTRIALS*sizeof(float) as the number of bytes to malloc, not sizeof(hholeaxs)  *****
 	// (because hholeaxs is a float *, its sizeof is only 8)
 	// *********************************
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
+	cudaMalloc( (void**)(&dholeaxs), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholeays), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholears), NUMTRIALS * sizeof(float));
 
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
+	cudaMalloc( (void**)(&dholebxs), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholebys), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholebrs), NUMTRIALS * sizeof(float));
 
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
-	cudaMalloc( ????? );
+	cudaMalloc( (void**)(&dholecxs), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholecys), NUMTRIALS * sizeof(float));
+	cudaMalloc( (void**)(&dholecrs), NUMTRIALS * sizeof(float));
 
-	cudaMalloc( ????? );
+	cudaMalloc( (void**)(&dsuccesses), NUMTRIALS * sizeof(int) );
 
 	CudaCheckError( 1 );
 
 
 	// copy host memory to the device:
 
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholeaxs, hholeaxs,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholeays, hholeays,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholears,  hholears,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
 
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholebxs, hholebxs,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholebys, hholebys,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholebrs,  hholebrs,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
 
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
-	cudaMemcpy( ?????,  ?????,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholecxs, hholecxs,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholecys, hholecys,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
+	cudaMemcpy( dholecrs,  hholecrs,  NUMTRIALS*sizeof(float), cudaMemcpyHostToDevice );
 
 	CudaCheckError( 2 );
 
