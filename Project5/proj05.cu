@@ -17,6 +17,8 @@
 #include "helper_functions.h"
 #include "helper_cuda.h"
 
+#define CSV 1
+
 // setting the number of trials in the monte carlo simulation:
 #ifndef NUMTRIALS
 #define NUMTRIALS	50000
