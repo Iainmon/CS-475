@@ -49,7 +49,7 @@
 
 // ranges for the random numbers:
 
-#define PROJECT1
+// #define PROJECT1
 
 #ifdef PROJECT1
 const float HoleAx   =  2.90f;
