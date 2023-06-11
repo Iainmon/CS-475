@@ -41,7 +41,7 @@
 
 // print debugging messages?
 
-#define DEBUG		true
+#define DEBUG		false
 
 // globals:
 
@@ -199,8 +199,12 @@ main( int argc, char *argv[ ] )
     {
         double seconds = time1 - time0;
                 double performance = (double)NumCpus*(double)MAXPERIODS*(double)PPSize/seconds/1000000.;        // mega-mults computed per second
-                fprintf( stderr, "%3d processors, %10d elements, %9.2lf mega-multiplies computed per second\n",
+            if (DEBUG) {fprintf( stderr, "%3d processors, %10d elements, %9.2lf mega-multiplies computed per second\n",
+            NumCpus, NUMELEMENTS, performance );}
+            else{
+            fprintf( stderr, "%3d, %10d, %9.2lf\n",
             NumCpus, NUMELEMENTS, performance );
+            }
     }
 
     // write the file to be plotted to look for the secret sine wave periods:
